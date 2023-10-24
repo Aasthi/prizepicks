@@ -9,6 +9,7 @@ import { tabAction } from "../../app/slices/currentTabSlice.js";
 import kl from "../../assets/kl.png";
 import Modal from "../../components/Modal.jsx";
 import Toast from "../../components/Toast.jsx";
+import { rewardDic } from "../../utils/constants.jsx";
 
 const tabs = [
   { name: "Board", href: "#", current: true },
@@ -29,30 +30,10 @@ const Home = () => {
   const showPlayer = useSelector((state) => state.currentTabSlice.showPlayers);
   const AllPlayers = useSelector((state) => state.currentTabSlice.cards);
   const modal = useSelector((state) => state.currentTabSlice.modal);
-  const [inp, setInput] = useState(10);
+  const [fee, setFee] = useState(0);
 
   const dispatch = useDispatch();
-let baseValue = 10;
- 
 
-for (let i = 0; i < 25; i++) {
-  if(AllPlayers.length < 4){
-    10 * 0;
-  }else if (AllPlayers.length === 4){
-    10 * 0.4;
-  }else if (AllPlayers.length === 5){
-    10 * 2;
-  }else if (AllPlayers.length === 6){
-    10 * 25;
-  }
-  
-}
-
-
-function onInput(e){
-  setInput(e.target.value);
-}
- 
   return (
     <Fragment>
       <CategoryTabs />
@@ -100,8 +81,6 @@ function onInput(e){
               : " w-[30%] hidden border mt-16 rounded-sm   py-2 relative"
           }
         >
-          
-
           <div className="flex items-center justify-between ">
             <div className="flex items-center gap-2 relative">
               <h1 className="text-white text-md">Current Entry</h1>
@@ -143,7 +122,7 @@ function onInput(e){
                   <div className="">
                     <h1 className="text-semibold text-white">{item.name}</h1>
                     <div className="flex items-center text-xs gap-2 text-gray-300">
-                      <p className="text-sm text-gray-300">NBA</p>
+                      <p className="text-sm text-gray-300">Cricket</p>
                       <p>{item.team}</p>
                     </div>
                     <p className="text-xs text-gray-300 ">{item.date}</p>
@@ -151,54 +130,51 @@ function onInput(e){
                     <div className="bg-black rounded-lg my-2  flex items-center justify-between">
                       <div className="flex items-center justify-center py-2 w-[50%]">
                         <h1 className="text-sm text-white font-semibold">
-                          26.2
+                          {item.point}
                         </h1>
                       </div>
                       <div className="flex items-center justify-center py-2 w-[50%] border-l border-dashed	border-[#f1c40f]">
                         <h1 className="text-xs text-white">Points</h1>
                       </div>
-                      1
                     </div>
                   </div>
 
                   <div className="">
-                  <ul   className="mt-2">
-                      
+                    <ul className="mt-2">
                       <li className="grid grid-cols-1  sm:grid-cols-1  rounded-md">
-                          
                         <div className="flex items-center px-2 gap-1 cursor-pointer">
-                       
-                         <input
+                          <input
                             key="one"
                             value="one"
                             type="radio"
                             name={item.date}
                             id={item.date}
                             className="hidden peer"
-                            
                           />
-                           <label className="inline-flex items-center justify-between w-full px-3 py-1 peer-checked:bg-orange-500 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-white peer-checked:border-orange-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700" htmlFor={item.date}>More</label>
+                          <label
+                            className="inline-flex items-center justify-between w-full px-3 py-1 peer-checked:bg-orange-500 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-white peer-checked:border-orange-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            htmlFor={item.date}
+                          >
+                            More
+                          </label>
                         </div>
-                           <div className="flex items-center px-2 gap-2 pt-2 cursor-pointer">
-                           
-                            <input
+                        <div className="flex items-center px-2 gap-2 pt-2 cursor-pointer">
+                          <input
                             key="one"
                             value="one"
                             type="radio"
                             name={item.date}
                             id={item.name}
                             className="peer hidden"
-                            
-                            
                           />
-                           <label className="inline-flex items-center justify-between w-full px-3 py-1 peer-checked:bg-orange-500 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-white peer-checked:border-orange-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"  htmlFor={item.name}>Less</label>
-                           </div>
-                           
-                       
-                  
+                          <label
+                            className="inline-flex items-center justify-between w-full px-3 py-1 peer-checked:bg-orange-500 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-white peer-checked:border-orange-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                            htmlFor={item.name}
+                          >
+                            Less
+                          </label>
+                        </div>
                       </li>
-
-                      
                     </ul>
                   </div>
                 </div>
@@ -206,8 +182,13 @@ function onInput(e){
             </div>
           </div>
 
-
-          <div className={AllPlayers.length < 3 ?  "    absolute -bottom-0 left-0 top- bg-black z-50 w-full px-4 py-4 text-white" : "    sticky -bottom-2 left-0 bg-black z-50 w-full px-4 py-4 text-white"}>
+          <div
+            className={
+              AllPlayers.length < 3
+                ? "    absolute -bottom-0 left-0 top- bg-black z-50 w-full px-4 py-4 text-white"
+                : "    sticky -bottom-2 left-0 bg-black z-50 w-full px-4 py-4 text-white"
+            }
+          >
             <div className="flex items-center my-3 gap-4">
               <div
                 className="bg-gray-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
@@ -216,12 +197,9 @@ function onInput(e){
                 <p>Entry</p>
                 <input
                   type="text"
-                  name=""
-
                   className="w-24 bg-transparent"
                   placeholder="$ 10"
-                  onInput={onInput}
-                  id=""
+                  onInput={e => setFee(e.target.value)}
                 />
               </div>
               <div
@@ -229,18 +207,33 @@ function onInput(e){
                 disabled
               >
                 <p>To Win</p>
-                <p>$ {AllPlayers.length === 6 ? inp * 25 : AllPlayers.length === 5 ? inp * 10 : AllPlayers.length === 4 ? inp * 5 : AllPlayers.length < 4 ? 0 : 0 }</p>
+                <p>
+                  ${" "}
+                  {rewardDic[AllPlayers.length] * fee}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-    
-      <div className={AllPlayers.length <=  0 || modal === true ? "hidden": "fixed lg:hidden bottom-4 px-8 w-full py-3 bg-indigo-500 flex items-center justify-between" }>
-        <button className="text-white" disabled>{AllPlayers.length} Players Selected</button>
+      <div
+        className={
+          AllPlayers.length <= 0 || modal === true
+            ? "hidden"
+            : "fixed lg:hidden bottom-4 px-8 w-full py-3 bg-indigo-500 flex items-center justify-between"
+        }
+      >
+        <button className="text-white" disabled>
+          {AllPlayers.length} Players Selected
+        </button>
         <button className="flex items-center gap-4 text-wihte">
-          <span className="text-white" onClick={() => dispatch(tabAction.toggleModal())}>Finalize Entry</span>{" "}
+          <span
+            className="text-white"
+            onClick={() => dispatch(tabAction.toggleModal())}
+          >
+            Finalize Entry
+          </span>{" "}
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -260,139 +253,140 @@ function onInput(e){
         </button>
       </div>
 
-
-
       {/*  */}
 
-      <div className={modal === false ? 'text-white hidden lg:hidden h-screen overflow-auto bg-black min-w-full top-0 fixed left-0' : 'text-white px-4 overflow-auto lg:hidden h-screen bg-black min-w-full top-0 fixed left-0'}>
-      <div className="fixed left-0 bottom-0 bg-black border-t mt-8 border-gray-500 overflow-hidden z-50 w-full px-4 py-4 text-white">
-            <div className="flex items-center mb-3 mt-6 gap-4">
-              <div
-                className="bg-gray-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
-                disabled
-              >
-                <p>Entry</p>
-                <input
-                  type="text"
-                  name=""
-                  className="w-24 bg-transparent"
-                  placeholder="$ 10"
-                  id=""
-                />
-              </div>
-              <div
-                className="bg-indigo-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
-                disabled
-              >
-                <p>To Win</p>
-                <p>$ {AllPlayers.length === 6 ? inp * 25 : AllPlayers.length === 5 ? inp * 10 : AllPlayers.length === 4 ? inp * 5 : AllPlayers.length < 4 ? 0 : 0 }</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 relative py-4">
-              <h1 className="text-white text-xl text-md px-4 py-2 bg-indigo-500 rounded-md" onClick={() => dispatch(tabAction.toggleModal())}>Close Modal</h1>
-              
-            </div>
-
-          <div className="flex items-center justify-between relative my-4">
-            <div className="flex items-center gap-2 relative">
-              <h1 className="text-white text-md">Current Entry</h1>
-              <h1 className="text-sm text-gray-500">
-                {AllPlayers.length} Players Selected
-              </h1>
-            </div>
-
-            <button
-              onClick={() => dispatch(tabAction.clearCards())}
-              className="text-[#f1c40f] font-bold"
+      <div
+        className={
+          modal === false
+            ? "text-white hidden lg:hidden h-screen overflow-auto bg-black min-w-full top-0 fixed left-0"
+            : "text-white px-4 overflow-auto lg:hidden h-screen bg-black min-w-full top-0 fixed left-0"
+        }
+      >
+        <div className="fixed left-0 bottom-0 bg-black border-t mt-8 border-gray-500 overflow-hidden z-50 w-full px-4 py-4 text-white">
+          <div className="flex items-center mb-3 mt-6 gap-4">
+            <div
+              className="bg-gray-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
+              disabled
             >
-              clear
-            </button>
+              <p>Entry</p>
+              <input
+                type="text"
+                className="w-24 bg-transparent"
+                placeholder="$ 10"
+                onChange={e => setFee(e.target.value)}
+              />
+            </div>
+            <div
+              className="bg-indigo-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
+              disabled
+            >
+              <p>To Win</p>
+              <p>
+                ${" "}
+                {rewardDic[AllPlayers.length] * fee}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 relative py-4">
+          <h1
+            className="text-white text-xl text-md px-4 py-2 bg-indigo-500 rounded-md"
+            onClick={() => dispatch(tabAction.toggleModal())}
+          >
+            Close Modal
+          </h1>
+        </div>
+
+        <div className="flex items-center justify-between relative my-4">
+          <div className="flex items-center gap-2 relative">
+            <h1 className="text-white text-md">Current Entry</h1>
+            <h1 className="text-sm text-gray-500">
+              {AllPlayers.length} Players Selected
+            </h1>
           </div>
 
-          <div className=" top-4 overflow-hidden mb-[50%]">
-            <div className="   sticky top-4   overflow-hidden  grid gap-4">
-              {AllPlayers.map((item) => (
-                <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative">
-                  <svg
-                    onClick={() => dispatch(tabAction.deleteSingle(item.id))}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="white"
-                    className="w-4 h-4 absolute top-2 right-2 cursor-pointer"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                  <div className="">
-                    <img className="w-20 h-auto" src={kl} alt="" />
-                  </div>
-                  <div className="">
-                    <h1 className="text-semibold text-white">{item.name}</h1>
-                    <div className="flex items-center text-xs gap-2 text-gray-300">
-                      <p className="text-sm text-gray-300">NBA</p>
-                      <p>{item.team}</p>
-                    </div>
-                    <p className="text-xs text-gray-300 ">{item.date}</p>
-                    <p className="text-xs text-gray-300"> vs {item.opponent}</p>
-                    <div className="bg-black rounded-lg my-2  flex items-center justify-between">
-                      <div className="flex items-center justify-center py-2 w-[50%]">
-                        <h1 className="text-sm text-white font-semibold">
-                          26.2
-                        </h1>
-                      </div>
-                      <div className="flex items-center justify-center py-2 w-[50%] border-l border-dashed	border-[#f1c40f]">
-                      1 <h1 className="text-xs ml-2 text-white">Points</h1>
-                      </div>
-                    
-                    </div>
-                  </div>
+          <button
+            onClick={() => dispatch(tabAction.clearCards())}
+            className="text-[#f1c40f] font-bold"
+          >
+            clear
+          </button>
+        </div>
 
-                  <div className="">
-                    <ul value={mem} onChange={setMem} className="mt-2">
-                      
-                      <li className="grid grid-cols-1  sm:grid-cols-1 ring-1 ring-gray-500   rounded-md">
-                          
-                        <div className="">
-                        <label htmlFor={item.date}>user</label>
-                         <input
-                            key="one"
-                            value="one"
-                            type="radio"
-                            name={item.date}
-                            id={item.date}
-                            
-                          />
-                        </div>
-                           <div className={item.date}>
-                            <label htmlFor={item.name}>New Use</label>
-                            <input
-                            key="one"
-                            value="one"
-                            type="radio"
-                            name={item.date}
-                            id={item.name}
-                            
-                            
-                          />
-                           </div>
-                           
-                       
-                  
-                      </li>
-                    </ul>
+        <div className=" top-4 overflow-hidden mb-[50%]">
+          <div className="   sticky top-4   overflow-hidden  grid gap-4">
+            {AllPlayers.map((item) => (
+              <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative">
+                <svg
+                  onClick={() => dispatch(tabAction.deleteSingle(item.id))}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="white"
+                  className="w-4 h-4 absolute top-2 right-2 cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+                <div className="">
+                  <img className="w-20 h-auto" src={kl} alt="" />
+                </div>
+                <div className="">
+                  <h1 className="text-semibold text-white">{item.name}</h1>
+                  <div className="flex items-center text-xs gap-2 text-gray-300">
+                    <p className="text-sm text-gray-300">NBA</p>
+                    <p>{item.team}</p>
+                  </div>
+                  <p className="text-xs text-gray-300 ">{item.date}</p>
+                  <p className="text-xs text-gray-300"> vs {item.opponent}</p>
+                  <div className="bg-black rounded-lg my-2  flex items-center justify-between">
+                    <div className="flex items-center justify-center py-2 w-[50%]">
+                      <h1 className="text-sm text-white font-semibold">
+                        {item.point}
+                      </h1>
+                    </div>
+                    <div className="flex items-center justify-center py-2 w-[50%] border-l border-dashed	border-[#f1c40f]">
+                      <h1 className="text-xs ml-2 text-white">Points</h1>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
+
+                <div className="">
+                  <ul value={mem} onChange={setMem} className="mt-2">
+                    <li className="grid grid-cols-1  sm:grid-cols-1 ring-1 ring-gray-500   rounded-md">
+                      <div className="">
+                        <label htmlFor={item.date}>user</label>
+                        <input
+                          key="one"
+                          value="one"
+                          type="radio"
+                          name={item.date}
+                          id={item.date}
+                        />
+                      </div>
+                      <div className={item.date}>
+                        <label htmlFor={item.name}>New Use</label>
+                        <input
+                          key="one"
+                          value="one"
+                          type="radio"
+                          name={item.date}
+                          id={item.name}
+                        />
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
-    </div>
+        </div>
+      </div>
     </Fragment>
   );
 };

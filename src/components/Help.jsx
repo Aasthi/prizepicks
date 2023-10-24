@@ -1,97 +1,11 @@
 import React, { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
-
-
-
-import { EnvelopeIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { tabAction } from "../app/slices/currentTabSlice";
 const Help = () => {
   const [input , setInput] = useState('');
 
-
-
   const dispatch = useDispatch();
 
-
-  const AllPlayers = useSelector((state) => state.currentTabSlice.cards);
-
-
-const showPlayers = useSelector((state) => state.currentTabSlice.showPlayers);
-
-
-const teams = [
-  {
-      id:uuidv4(),
-    name: "Virat Kohli",
-    team: "Royal Challengers Bangalore",
-    opponent: "Mumbai Indians",
-    date: "2022-05-01"
-  },
-  {
-      id:uuidv4(),
-    name: "Rohit Sharma",
-    team: "Mumbai Indians",
-    opponent: "Chennai Super Kings",
-    date: "2022-05-02"
-  },
-  {
-      id:uuidv4(),
-    name: "MS Dhoni",
-    team: "Chennai Super Kings",
-    opponent: "Royal Challengers Bangalore",
-    date: "2022-05-03"
-  },
-  {
-      id:uuidv4(),
-    name: "Jasprit Bumrah",
-    team: "Mumbai Indians",
-    opponent: "Delhi Capitals",
-    date: "2022-05-04"
-  },
-  {
-      id:uuidv4(),
-    name: "David Warner",
-    team: "Sunrisers Hyderabad",
-    opponent: "Kolkata Knight Riders",
-    date: "2022-05-05"
-  },
-  {
-      id:uuidv4(),
-    name: "Kagiso Rabada",
-    team: "Delhi Capitals",
-    opponent: "Punjab Kings",
-    date: "2022-05-06"
-  },
-  {
-      id:uuidv4(),
-    name: "KL Rahul",
-    team: "Punjab Kings",
-    opponent: "Rajasthan Royals",
-    date: "2022-05-07"
-  },
-  {
-      id:uuidv4(),
-    name: "Andre Russell",
-    team: "Kolkata Knight Riders",
-    opponent: "Sunrisers Hyderabad",
-    date: "2022-05-08"
-  },
-  {
-      id:uuidv4(),
-    name: "AB de Villiers",
-    team: "Royal Challengers Bangalore",
-    opponent: "Chennai Super Kings",
-    date: "2022-05-09"
-  },
-  {
-      id:uuidv4(),
-    name: "Sanju Samson",
-    team: "Rajasthan Royals",
-    opponent: "Mumbai Indians",
-    date: "2022-05-10"
-  }
-]
 function setGrid(){
 
   dispatch(tabAction.setShowPlayerss());
