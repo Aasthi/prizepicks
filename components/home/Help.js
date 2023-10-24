@@ -1,6 +1,6 @@
+import { tabAction } from "@/store/currentTabSlice";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { tabAction } from "../../../prizepicks1/src/app/slices/currentTabSlice";
+import { useDispatch } from "react-redux";
 const Help = () => {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
