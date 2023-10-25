@@ -94,8 +94,8 @@ const Home = () => {
 
           <div className=" top-4 overflow-hidden my-16">
             <div className="   sticky top-4   overflow-hidden  grid gap-4">
-              {AllPlayers.map((item) => (
-                <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative">
+              {AllPlayers.map((item, index) => (
+                <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative" key={index}>
                   <svg
                     onClick={() => dispatch(tabAction.deleteSingle(item.id))}
                     xmlns="http://www.w3.org/2000/svg"
