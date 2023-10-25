@@ -110,10 +110,8 @@ export const Web3AuthProvider = ({ children, web3AuthNetwork, chain }) => {
   }, [chain, web3AuthNetwork]);
 
   const login = async () => {
-    console.log("==============hi==============")
     if (!web3Auth) {
       console.log("web3auth not initialized yet");
-      uiConsole("web3auth not initialized yet");
       return;
     }
     const localProvider = await web3Auth.connect();
@@ -123,7 +121,6 @@ export const Web3AuthProvider = ({ children, web3AuthNetwork, chain }) => {
   const logout = async () => {
     if (!web3Auth) {
       console.log("web3auth not initialized yet");
-      uiConsole("web3auth not initialized yet");
       return;
     }
     await web3Auth.logout();
@@ -133,19 +130,13 @@ export const Web3AuthProvider = ({ children, web3AuthNetwork, chain }) => {
   const getUserInfo = async () => {
     if (!web3Auth) {
       console.log("web3auth not initialized yet");
-      uiConsole("web3auth not initialized yet");
       return;
     }
     const user = await web3Auth.getUserInfo();
-    uiConsole(user);
+    return user
   };
 
-  const uiConsole = (...args) => {
-    const el = document.querySelector("#console>p");
-    if (el) {
-      el.innerHTML = JSON.stringify(args || {}, (key, value) => (typeof value === "bigint" ? value.toString() : value), 2);
-    }
-  };
+
 
   const contextProvider = {
     web3Auth,
