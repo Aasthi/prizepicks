@@ -1,4 +1,4 @@
-import { ADAPTER_EVENTS } from "@web3auth/base";
+import { ADAPTER_EVENTS, WALLET_ADAPTERS } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -97,6 +97,18 @@ export const Web3AuthProvider = ({ children, web3AuthNetwork, chain }) => {
               },
               // setting it to false will hide all social login methods from modal.
               showOnModal: true,
+            },
+            [WALLET_ADAPTERS.METAMASK]: {
+              label: "metamask",
+              showOnModal: false,
+            },
+            [WALLET_ADAPTERS.TORUS_EVM]: {
+              label: "Torus Wallet",
+              showOnModal: false,
+            },
+            [WALLET_ADAPTERS.WALLET_CONNECT_V2]: {
+              label: "wallet_connect",
+              showOnModal: false,
             },
           },
         });
