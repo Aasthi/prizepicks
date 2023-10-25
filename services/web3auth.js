@@ -110,6 +110,7 @@ export const Web3AuthProvider = ({ children, web3AuthNetwork, chain }) => {
   }, [chain, web3AuthNetwork]);
 
   const login = async () => {
+    console.log("==============hi==============")
     if (!web3Auth) {
       console.log("web3auth not initialized yet");
       uiConsole("web3auth not initialized yet");
