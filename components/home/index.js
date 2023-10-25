@@ -46,9 +46,9 @@ const Home = () => {
               className="flex md:px-0 px-4 space-x-4 max-w-7xl border-b-4 border-b-[#5856D6] mx-auto items-center justify-center"
               aria-label="Tabs"
             >
-              {tabs.map((tab) => (
+              {tabs.map((tab, index) => (
                 <a
-                  key={tab.name}
+                  key={index}
                   href={tab.href}
                   className={classNames(
                     tab.current
@@ -311,8 +311,8 @@ const Home = () => {
 
         <div className=" top-4 overflow-hidden mb-[50%]">
           <div className="   sticky top-4   overflow-hidden  grid gap-4">
-            {AllPlayers.map((item) => (
-              <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative">
+            {AllPlayers.map((item, index) => (
+              <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative" key={index}>
                 <svg
                   onClick={() => dispatch(tabAction.deleteSingle(item.id))}
                   xmlns="http://www.w3.org/2000/svg"
