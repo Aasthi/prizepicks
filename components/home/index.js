@@ -168,22 +168,21 @@ const Home = () => {
         }
       >
         <div className="fixed left-0 bottom-0 bg-black border-t mt-8 border-gray-500 overflow-hidden z-50 w-full px-4 py-4 text-white">
-          <div className="flex items-center mb-3 mt-6 gap-4">
+          <div className="bg-indigo-700 hover:bg-indigo-500 cursor-pointer py-2 px-8 rounded-xl w-4/5 mx-auto text-center text-xl">Predict</div>
+          <div className="flex my-3 flex-row justify-center gap-12">
             <div
               className="bg-gray-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
-              disabled
             >
               <p>Entry</p>
               <input
                 type="text"
-                className="w-24 bg-transparent"
+                className="w-28 bg-transparent"
                 placeholder="$ 10"
-                onChange={e => setFee(e.target.value)}
+                onInput={e => setFee(e.target.value)}
               />
             </div>
             <div
               className="bg-indigo-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
-              disabled
             >
               <p>To Win</p>
               <p>
