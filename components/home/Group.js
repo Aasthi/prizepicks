@@ -9,8 +9,6 @@ export const Group = () => {
 
   const showPlayer = useSelector((state) => state.currentTabSlice.showPlayers);
   const cards = useSelector((state) => state.currentTabSlice.cards);
-  const modal = useSelector((state) => state.currentTabSlice.toggleModal);
-  const message = useSelector((state) => state.currentTabSlice.message);
 
   function setData(item) {
     dispatch(tabAction.setCards(item));
@@ -24,9 +22,9 @@ export const Group = () => {
       }
     >
       {teams.map((item, index) => {
-        const hasIdenticalValues = cards.some((card) =>
-          Object.keys(item).every((key) => item[key] === card[key])
-        );
+        const hasIdenticalValues = cards.findIndex((card) =>
+          card.id == item.id
+        ) != -1;
 
         return (
           <div

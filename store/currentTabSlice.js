@@ -50,26 +50,27 @@ const currentTabSlice = createSlice({
       state.showPlayers = false;
     },
     deleteSingle(state, action) {
-
       state.message = false;
-
       const idToDelete = action.payload;
       state.cards = state.cards.filter(item => item.id !== idToDelete);
       if (state.cards.length == 0)
         state.showPlayers = false;
     },
+    updateChoice(state, action) {
+      state.cards = state.cards.map(item => {
+        if (item.id != action.payload.id) return item
+        else { item.choice = action.payload.choice; return item }
+      })
+    },
 
     toggleModal(state) {
       state.modal = !state.modal;
-
     },
-
 
     //Search through array
     onChangeFunc(state, action) {
       const searchTerm = action.payload.toLowerCase();
       state.cards = state.players.filter((player) => player.name.toLowerCase().includes(searchTerm));
-      console.log(state.cards, 'look');
     }
   }
 })

@@ -6,6 +6,7 @@ export const teams = [
     opponent: "Mumbai Indians",
     point: 26,
     date: "2022-05-01",
+    choice: 0
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const teams = [
     opponent: "Chennai Super Kings",
     point: 22,
     date: "2022-05-02",
+    choice: 0
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ export const teams = [
     opponent: "Royal Challengers Bangalore",
     point: 27,
     date: "2022-05-03",
+    choice: 0
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ export const teams = [
     opponent: "Delhi Capitals",
     point: 23,
     date: "2022-05-04",
+    choice: 0
   },
   {
     id: 5,
@@ -38,6 +42,7 @@ export const teams = [
     opponent: "Kolkata Knight Riders",
     point: 29,
     date: "2022-05-05",
+    choice: 0
   },
   {
     id: 6,
@@ -46,6 +51,7 @@ export const teams = [
     opponent: "Punjab Kings",
     point: 31,
     date: "2022-05-06",
+    choice: 0
   },
   {
     id: 7,
@@ -54,6 +60,7 @@ export const teams = [
     opponent: "Rajasthan Royals",
     point: 21,
     date: "2022-05-07",
+    choice: 0
   },
   {
     id: 8,
@@ -62,6 +69,7 @@ export const teams = [
     opponent: "Sunrisers Hyderabad",
     point: 32,
     date: "2022-05-08",
+    choice: 0
   },
   {
     id: 9,
@@ -70,6 +78,7 @@ export const teams = [
     opponent: "Chennai Super Kings",
     point: 23,
     date: "2022-05-09",
+    choice: 0
   },
   {
     id: 10,
@@ -78,6 +87,7 @@ export const teams = [
     opponent: "Mumbai Indians",
     point: 25,
     date: "2022-05-10",
+    choice: 0
   },
 ];
 

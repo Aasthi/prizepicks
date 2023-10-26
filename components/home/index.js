@@ -7,15 +7,11 @@ import Alert from "./Alert.js";
 import Help from "./Help.js";
 import { Group } from "./Group.js";
 import { rewardDic } from "@/utils/constants.js";
+import EntryCard from "../cards/EntryCard.js";
 
 const tabs = [
   { name: "Board", href: "#", current: true },
   { name: "My Enteries", href: "#", current: false },
-];
-
-const memoryOptions = [
-  { name: "More", inStock: true },
-  { name: "Less", inStock: true },
 ];
 
 function classNames(...classes) {
@@ -23,7 +19,6 @@ function classNames(...classes) {
 }
 
 const Home = () => {
-  const [mem, setMem] = useState(memoryOptions[2]);
   const showPlayer = useSelector((state) => state.currentTabSlice.showPlayers);
   const AllPlayers = useSelector((state) => state.currentTabSlice.cards);
   const modal = useSelector((state) => state.currentTabSlice.modal);
@@ -34,7 +29,6 @@ const Home = () => {
   return (
     <div className="py-6">
       <CategoryTabs />
-
       <div className="max-w-7xl mx-auto w-full  gap-8 flex relative md:px-0 px-4">
         <div
           className={
@@ -67,8 +61,6 @@ const Home = () => {
           <Help />
           <Group />
         </div>
-
-        {/* */}
         <div
           className={
             showPlayer
@@ -93,86 +85,9 @@ const Home = () => {
           </div>
 
           <div className=" top-4 overflow-hidden my-16">
-            <div className="   sticky top-4   overflow-hidden  grid gap-4">
+            <div className="sticky top-4 overflow-hidden grid gap-4">
               {AllPlayers.map((item, index) => (
-                <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative" key={index}>
-                  <svg
-                    onClick={() => dispatch(tabAction.deleteSingle(item.id))}
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="white"
-                    className="w-4 h-4 absolute top-2 right-2 cursor-pointer"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                  <div className="">
-                    <img className="w-20 h-auto" src={character} alt="" />
-                  </div>
-                  <div className="">
-                    <h1 className="text-semibold text-white">{item.name}</h1>
-                    <div className="flex items-center text-xs gap-2 text-gray-300">
-                      <p className="text-sm text-gray-300">Cricket</p>
-                      <p>{item.team}</p>
-                    </div>
-                    <p className="text-xs text-gray-300 ">{item.date}</p>
-                    <p className="text-xs text-gray-300"> vs {item.opponent}</p>
-                    <div className="bg-black rounded-lg my-2  flex items-center justify-between">
-                      <div className="flex items-center justify-center py-2 w-[50%]">
-                        <h1 className="text-sm text-white font-semibold">
-                          {item.point}
-                        </h1>
-                      </div>
-                      <div className="flex items-center justify-center py-2 w-[50%] border-l border-dashed	border-[#f1c40f]">
-                        <h1 className="text-xs text-white">Points</h1>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="">
-                    <ul className="mt-2">
-                      <li className="grid grid-cols-1  sm:grid-cols-1  rounded-md">
-                        <div className="flex items-center px-2 gap-1 cursor-pointer">
-                          <input
-                            key="one"
-                            value="one"
-                            type="radio"
-                            name={item.date}
-                            id={item.date}
-                            className="hidden peer"
-                          />
-                          <label
-                            className="inline-flex items-center justify-between w-full px-3 py-1 peer-checked:bg-orange-500 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-white peer-checked:border-orange-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-                            htmlFor={item.date}
-                          >
-                            More
-                          </label>
-                        </div>
-                        <div className="flex items-center px-2 gap-2 pt-2 cursor-pointer">
-                          <input
-                            key="one"
-                            value="one"
-                            type="radio"
-                            name={item.date}
-                            id={item.name}
-                            className="peer hidden"
-                          />
-                          <label
-                            className="inline-flex items-center justify-between w-full px-3 py-1 peer-checked:bg-orange-500 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-white peer-checked:border-orange-600 peer-checked:text-white hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-                            htmlFor={item.name}
-                          >
-                            Less
-                          </label>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                <EntryCard key={index} data={item} />
               ))}
             </div>
           </div>
@@ -180,26 +95,25 @@ const Home = () => {
           <div
             className={
               AllPlayers.length < 3
-                ? "    absolute -bottom-0 left-0 top- bg-black z-50 w-full px-4 py-4 text-white"
-                : "    sticky -bottom-2 left-0 bg-black z-50 w-full px-4 py-4 text-white"
+                ? "absolute -bottom-0 left-0 top- bg-black z-50 w-full px-4 py-4 text-white"
+                : "sticky -bottom-2 left-0 bg-black z-50 w-full px-4 py-4 text-white"
             }
           >
-            <div className="flex items-center my-3 gap-4">
+            <div className="bg-indigo-700 hover:bg-indigo-500 cursor-pointer py-2 px-8 rounded-xl w-full text-center text-xl">Predict</div>
+            <div className="flex my-3 flex-row justify-between">
               <div
                 className="bg-gray-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
-                disabled
               >
                 <p>Entry</p>
                 <input
                   type="text"
-                  className="w-24 bg-transparent"
+                  className="w-28 bg-transparent"
                   placeholder="$ 10"
                   onInput={e => setFee(e.target.value)}
                 />
               </div>
               <div
                 className="bg-indigo-600 pl-3 pr-8 flex-col justify-start py-2 rounded-lg flex items-start"
-                disabled
               >
                 <p>To Win</p>
                 <p>
@@ -211,7 +125,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
       <div
         className={
           AllPlayers.length <= 0 || modal === true
@@ -247,9 +160,6 @@ const Home = () => {
           </span>
         </button>
       </div>
-
-      {/*  */}
-
       <div
         className={
           modal === false
@@ -310,74 +220,9 @@ const Home = () => {
         </div>
 
         <div className=" top-4 overflow-hidden mb-[50%]">
-          <div className="   sticky top-4   overflow-hidden  grid gap-4">
+          <div className=" sticky top-4   overflow-hidden  grid gap-4">
             {AllPlayers.map((item, index) => (
-              <div className="p-2 bg-[#616161] flex items-center justify-between rounded-md relative" key={index}>
-                <svg
-                  onClick={() => dispatch(tabAction.deleteSingle(item.id))}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="white"
-                  className="w-4 h-4 absolute top-2 right-2 cursor-pointer"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-                <div className="">
-                  <img className="w-20 h-auto" src={character} alt="" />
-                </div>
-                <div className="">
-                  <h1 className="text-semibold text-white">{item.name}</h1>
-                  <div className="flex items-center text-xs gap-2 text-gray-300">
-                    <p className="text-sm text-gray-300">NBA</p>
-                    <p>{item.team}</p>
-                  </div>
-                  <p className="text-xs text-gray-300 ">{item.date}</p>
-                  <p className="text-xs text-gray-300"> vs {item.opponent}</p>
-                  <div className="bg-black rounded-lg my-2  flex items-center justify-between">
-                    <div className="flex items-center justify-center py-2 w-[50%]">
-                      <h1 className="text-sm text-white font-semibold">
-                        {item.point}
-                      </h1>
-                    </div>
-                    <div className="flex items-center justify-center py-2 w-[50%] border-l border-dashed	border-[#f1c40f]">
-                      <h1 className="text-xs ml-2 text-white">Points</h1>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="">
-                  <ul value={mem} onChange={setMem} className="mt-2">
-                    <li className="grid grid-cols-1  sm:grid-cols-1 ring-1 ring-gray-500   rounded-md">
-                      <div className="">
-                        <label htmlFor={item.date}>user</label>
-                        <input
-                          key="one"
-                          value="one"
-                          type="radio"
-                          name={item.date}
-                          id={item.date}
-                        />
-                      </div>
-                      <div className={item.date}>
-                        <label htmlFor={item.name}>New Use</label>
-                        <input
-                          key="one"
-                          value="one"
-                          type="radio"
-                          name={item.date}
-                          id={item.name}
-                        />
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <EntryCard key={index} data={item} />
             ))}
           </div>
         </div>
